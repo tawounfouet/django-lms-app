@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "app",  # Add the app to the installed apps
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,19 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
+
+
+# Email settings
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "Enter Email ID"
+EMAIL_HOST_PASSWORD = "Enter Password"
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
