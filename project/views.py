@@ -3,6 +3,8 @@ from django.urls import path
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
+from app.models import Categories, Course
+
 from django.contrib import messages
 from app.email_backend import EmailBackend
 
@@ -10,7 +12,16 @@ def base(request):
     return render(request, "base.html")
 
 def home(request):
-    return render(request, "core/home.html")
+    #categories = Categories.objects.all()
+    categories = Categories.objects.all().order_by("id")[0:5]
+    #courses = Course.objects.all().filter(status="Published").order_by("-id")[0:3]
+    courses = Course.objects.all().filter(status="Published")
+    
+    context = {
+        "categories": categories,
+        "courses": courses
+    }
+    return render(request, "core/home.html", context)
 
 def course_single(request):
     return render(request, "core/course_single.html")
