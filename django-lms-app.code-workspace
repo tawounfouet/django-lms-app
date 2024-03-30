@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../../Downloads/skola-html"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "skola-html"
+	}
+}

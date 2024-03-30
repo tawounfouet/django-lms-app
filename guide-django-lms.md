@@ -1,5 +1,12 @@
 
 ```bash
+
+# install pipenv
+#pip install pipenv
+
+# install pipenv using brew
+brew install pipenv
+
 # Create a virtual environment using Pipenv
 pipenv lock 
 
