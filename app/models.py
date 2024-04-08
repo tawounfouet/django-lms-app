@@ -1,5 +1,6 @@
 from django.db import models
 
+from django.contrib.auth.models import User
 # Create your models here.
 
 # Category model
@@ -27,6 +28,13 @@ class Level(models.Model):
     def __str__(self):
         return self.name
 
+class Language(models.Model):
+    language = models.CharField(max_length=200, null=True, blank=True)
+
+    def __str__(self):
+        return self.language
+
+
 # Course model
 class Course(models.Model):
     STATUS = (
@@ -46,8 +54,12 @@ class Course(models.Model):
     description = models.TextField(null=True)
     price = models.IntegerField(null=True)
     discount = models.IntegerField(null=True)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE, null=True, blank=True)
+    deadline = models.CharField(max_length=200, null=True, default="Lifetime Access", blank=True)
     slug = models.SlugField(max_length=500, null=True, blank=True, default="")
     status = models.CharField(max_length=200, null=True, choices=STATUS)
+    certificate = models.BooleanField(default=False, null=True, blank=True)
+    is_featured = models.BooleanField(default=False, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -91,3 +103,29 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
+
+class UserCourse(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    paid = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+    completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username + " - " + self.course.title
+
+
+# Payment model    
+class Payment(models.Model):
+    order_id = models.CharField(max_length=200, null=True, blank=True)
+    payment_id = models.CharField(max_length=200, null=True, blank=True)
+    user_course = models.ForeignKey(UserCourse, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True, null=True)
+    payment_status = models.BooleanField(default=False)
+    
+
+    def __str__(self):
+        return self.user.username + " - " + self.course.title + " - " + str(self.amount) + " - " + str(self.date)

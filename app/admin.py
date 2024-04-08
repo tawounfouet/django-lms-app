@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Categories, Author, Level, Course, What_you_will_learn, Requirements, Lesson, Video
+from .models import Categories, Author, Level, Language, Course, What_you_will_learn, Requirements, Lesson, Video, UserCourse, Payment
 
 class what_you_learn_TabularInline(admin.TabularInline):
     model = What_you_will_learn
@@ -20,8 +20,11 @@ class course_admin(admin.ModelAdmin):
 admin.site.register(Categories)
 admin.site.register(Author)
 admin.site.register(Level)
+admin.site.register(Language)
 admin.site.register(Course, course_admin)
-# admin.site.register(What_you_will_learn)
+admin.site.register(What_you_will_learn)
 admin.site.register(Requirements)
 admin.site.register(Lesson)
 admin.site.register(Video)
+admin.site.register(UserCourse)
+admin.site.register(Payment)
